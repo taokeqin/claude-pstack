@@ -57,8 +57,8 @@ const REPLACEMENTS = [
 	[/- `subagent_type`: `generalPurpose`\n((?:- (?!`readonly`).*\n)*?)- `readonly`: `true`\n/g, "- `subagent_type`: `pstack:readonly`\n$1"],
 	["generalPurpose", "general-purpose"],
 	// Cursor model slugs become Claude Code aliases (judgment → opus, code and second opinions → sonnet).
-	[/claude-opus-5-5-(?:max|medium)/g, "opus"],
-	[/grok-4\.7-(?:xhigh|medium)-fast/g, "sonnet"],
+	[/claude-opus-5-5-(?:max|xhigh|high|medium|low)\b/g, "opus"],
+	[/grok-4\.7-(?:max|xhigh|high|medium|low)-fast\b/g, "sonnet"],
 	["gpt-5.6-sol-max", "sonnet"],
 ];
 
