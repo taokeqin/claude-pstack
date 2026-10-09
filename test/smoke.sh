@@ -33,6 +33,9 @@ done
 for f in "$ROOT"/agents/poteto-agent.md "$ROOT"/agents/comment-sicko.md "$ROOT"/skills/poteto-mode/SKILL.md; do
 	grep -q 'CLAUDE-CODE.md' "$f" && ok "notes pointer in ${f#$ROOT/}" || no "notes pointer in ${f#$ROOT/}"
 done
+names="$(ls "$ROOT/skills" | paste -sd'|' -)"
+cmd_left="$(grep -rnoE "(^|[[:space:]\`(\"'])/($names)([^a-zA-Z0-9/_-]|$)" "$ROOT/skills" "$ROOT/agents" --include='*.md' || true)"
+[ -z "$cmd_left" ] && ok "slash commands use /pstack: prefix" || { no "unprefixed slash commands"; echo "$cmd_left" | head -5; }
 bad="$(for d in "$ROOT"/skills/*/; do n="$(basename "$d")"; grep -q "^name: $n$" "$d/SKILL.md" || echo "$n"; done)"
 [ -z "$bad" ] && ok "skill names match directories" || no "skill names: $bad"
 

@@ -67,6 +67,19 @@ const REPLACEMENTS = [
 const NOTES_POINTER =
 	"\n\n## Claude Code\n\nBefore any work, read `${CLAUDE_PLUGIN_ROOT}/CLAUDE-CODE.md` for how this pstack maps Cursor tools to Claude Code.\n";
 
+// pstack's own slash commands (`/poteto-mode`, `/tdd`, ...) are Cursor names.
+// Rewrite them to this platform's form; paths like `skills/poteto-mode/` and
+// `../tdd/SKILL.md` are left alone because a word, dot, or slash touches them.
+const COMMAND_PREFIX = "/pstack:";
+const SKILL_NAMES = fs
+	.readdirSync(path.join(src, "skills"))
+	.filter((n) => fs.existsSync(path.join(src, "skills", n, "SKILL.md")))
+	.sort((a, b) => b.length - a.length);
+REPLACEMENTS.push([
+	new RegExp(`(?<=^|[\\s\`(\\[\"'])/(${SKILL_NAMES.join("|")})(?![\\w/-])`, "gm"),
+	`${COMMAND_PREFIX}$1`,
+]);
+
 function transform(text) {
 	for (const [from, to] of REPLACEMENTS) text = typeof from === "string" ? text.split(from).join(to) : text.replace(from, to);
 	return text;
