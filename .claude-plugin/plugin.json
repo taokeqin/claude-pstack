@@ -1,0 +1,8 @@
+{
+  "name": "pstack",
+  "version": "0.1.0",
+  "description": "pstack (poteto's rigorous agent workflows) adapted for Claude Code. Write less, but higher quality code.",
+  "author": { "name": "Hacken Tao" },
+  "license": "MIT",
+  "keywords": ["pstack", "poteto-mode", "workflow", "principles", "subagents"]
+}

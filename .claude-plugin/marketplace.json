@@ -1,0 +1,14 @@
+{
+  "name": "claude-pstack",
+  "description": "Local marketplace for the Claude Code port of pstack",
+  "owner": {
+    "name": "Hacken Tao"
+  },
+  "plugins": [
+    {
+      "name": "pstack",
+      "source": "./",
+      "description": "pstack adapted for Claude Code"
+    }
+  ]
+}
